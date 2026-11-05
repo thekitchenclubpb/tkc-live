@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# Read-only viewer link: same page, opens in watch-only mode.
+[[redirects]]
+  from = "/live"
+  to = "/index.html"
+  status = 200
+  force = true
