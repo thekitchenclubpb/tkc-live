@@ -1,6 +1,6 @@
 [build]
-  publish = "public"
-  functions = "netlify/functions"
+  publish = "."
+  functions = "."
 
 # Read-only viewer link: same page, opens in watch-only mode.
 [[redirects]]

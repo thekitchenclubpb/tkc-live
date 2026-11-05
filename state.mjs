@@ -1,5 +1,5 @@
 import { getStore } from '@netlify/blobs';
-import { handle } from '../lib/state-core.mjs';
+import { handle } from './state-core.mjs';
 
 export default async (req) => {
   const store = getStore({ name: 'tkc-live', consistency: 'strong' });

@@ -81,3 +81,7 @@ export async function handle(req, store, env = {}, nowFn = Date.now) {
 
   return json({ error: 'method not allowed' }, 405);
 }
+
+// Not used. (This file sits beside state.mjs, so Netlify treats it as a function too; this keeps that harmless.)
+export default async () => new Response('not found', { status: 404 });
+export const config = { path: '/api/unused-core' };
