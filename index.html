@@ -503,6 +503,15 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 .w-now{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:0 0 .6rem;}
 .w-now .w-tag{font-family:var(--fd);font-weight:800;font-size:.72rem;letter-spacing:1px;padding:.25rem .65rem;border-radius:999px;background:rgba(160,170,89,.2);color:var(--olive);}
 .w-now .w-time{font-size:.82rem;color:var(--muted);}
+.w-now .sched-pill{margin-left:auto;font-size:.72rem;padding:.28rem .7rem;}
+.w-tag.now{background:rgba(111,191,115,.2);color:#6FBF73;border:1.5px solid #6FBF73;}
+.w-tag.now::before{content:'';display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:#6FBF73;margin-right:.45rem;animation:wpulse 1.4s infinite;}
+.w-tag.co{background:rgba(232,210,107,.18);color:#E8D26B;border:1.5px solid #E8D26B;}
+.w-tag.done{background:rgba(255,255,255,.08);color:var(--muted);}
+.w-tag.next{background:rgba(160,170,89,.18);color:var(--olive);}
+@keyframes wpulse{0%,100%{opacity:1}50%{opacity:.25}}
+.w-roundline{font-family:var(--fd);font-weight:800;font-size:1.5rem;margin:.1rem 0 .7rem;color:var(--cream);}
+.w-roundline small{font-family:var(--fb);font-weight:600;font-size:.82rem;color:var(--muted);margin-left:.4rem;}
 .wm{background:var(--forest2);border:1px solid rgba(160,170,89,.22);border-top:3px solid var(--olive);border-radius:14px;padding:.7rem .8rem;margin-bottom:.65rem;}
 .wm.c6{border-top-color:#6FBF73;}.wm.c7{border-top-color:#E8D26B;}.wm.c8{border-top-color:var(--olive);}.wm.c9{border-top-color:var(--clay);}
 .wm-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;font-family:var(--fd);font-weight:800;font-size:.78rem;letter-spacing:1px;color:var(--muted);}
@@ -3544,6 +3553,19 @@ function wMatch(courtLabel, court, A, B, sc, tag){
   return `<div class="wm c${court}">${head}<div class="wm-body">`+
     wTeam(A, has?sc.a:null, done && sc.a>sc.b, 'TEAM 1')+`<div class="wm-vs">VS</div>`+wTeam(B, has?sc.b:null, done && sc.b>sc.a, 'TEAM 2')+`</div></div>`;
 }
+function wNowHead(key, title, sub){
+  const co = timerMode==='changeover';
+  const t = currentSchedTarget();
+  const pill = (t && t.key===key) ? schedPillHTML(key) : '';
+  return `<div class="w-now"><span class="w-tag ${co?'co':'now'}">${co?'CHANGEOVER':'NOW PLAYING'}</span>${pill}</div>`+
+    `<div class="w-roundline">${escapeHTML(title)}<small>${escapeHTML(sub)}</small></div>`;
+}
+function wStatusTag(key, complete){
+  const ph = currentPhase();
+  const cur = (ph.type==='round' && key==='r'+ph.n) || (ph.type==='playoffs' && key==='g'+ph.group);
+  if(cur) return '<span class="w-tag now">NOW PLAYING</span>';
+  return complete ? '<span class="w-tag done">✓ FINISHED</span>' : '<span class="w-tag next">COMING UP</span>';
+}
 function wRoundHTML(n){
   if(!SCHEDULE[n]) return '<div class="w-empty">Not in play.</div>';
   if(isRoundSkipped(n)) return '<div class="w-empty">This round was skipped.</div>';
@@ -3559,8 +3581,9 @@ function wStageHTML(stage){
   if(stage==='makeup' && makeupSkipped()) return `<div class="wm c${meta.court}"><div class="wm-top"><span>${escapeHTML(meta.label.toUpperCase())}</span></div><div class="w-empty" style="padding:.6rem 0">Skipped</div></div>`;
   return wMatch(meta.label.toUpperCase()+' · COURT '+meta.court, meta.court, t&&t.teamA, t&&t.teamB, sc, meta.raceTo?('to '+meta.raceTo):'');
 }
+function wGroupBody(g){ return g.stages.map(wStageHTML).join(''); }
 function wGroupHTML(g){
-  return `<div class="w-now"><span class="w-tag">${escapeHTML(g.label.toUpperCase())}</span><span class="w-time">${escapeHTML(g.time||'')}</span></div>`+g.stages.map(wStageHTML).join('');
+  return `<div class="w-now">${wStatusTag('g'+g.key, g.stages.every(playoffMatchComplete))}<span class="w-time">${escapeHTML(g.label)} · ${escapeHTML(g.time||'')}</span></div>`+wGroupBody(g);
 }
 function wRender(){
   if(!KC_VIEWER) return;
@@ -3568,12 +3591,12 @@ function wRender(){
   // LIVE
   let top='', matches='';
   if(ph.type==='round'){
-    top = `<div class="w-now"><span class="w-tag">ROUND ${ph.n} OF ${TOTAL_ROUNDS_PRINTED>=ph.n?rrCutoff():TOTAL_ROUNDS}</span><span class="w-time">${escapeHTML(roundTimeFor(ph.n))}</span></div>`;
+    top = wNowHead('r'+ph.n, 'Round '+ph.n, 'of '+(TOTAL_ROUNDS_PRINTED>=ph.n?rrCutoff():TOTAL_ROUNDS)+' · '+roundTimeFor(ph.n));
     matches = wRoundHTML(ph.n);
     try{ const nx = buildUpNext(ph.n); matches += nx.outerHTML; }catch(e){}
   } else if(ph.type==='playoffs'){
     const g = PLAYOFF_STAGE_GROUPS.find(x=>x.key===ph.group);
-    top = ''; matches = g ? wGroupHTML(g) : '';
+    top = g ? wNowHead('g'+g.key, g.label, g.time||'') : ''; matches = g ? wGroupBody(g) : '';
     const i = PLAYOFF_STAGE_GROUPS.findIndex(x=>x.key===ph.group), nx = PLAYOFF_STAGE_GROUPS[i+1];
     if(nx) matches += `<div class="w-rest">Up next: ${escapeHTML(nx.label)} at ${escapeHTML((nx.time||'').split(' – ')[0])}</div>`;
   } else {
@@ -3588,7 +3611,7 @@ function wRender(){
   if(!watch.sel || !chips.some(c=>c.k===watch.sel)){ const c = chips.find(x=>x.cur) || chips[0]; watch.sel = c ? c.k : null; }
   document.getElementById('w-chips').innerHTML = chips.map(c=>`<button type="button" data-k="${c.k}" class="${[c.k===watch.sel?'on':'',c.cur?'cur':'',c.skip?'skip':'',c.done?'done':''].join(' ')}">${escapeHTML(c.t)}</button>`).join('');
   let body = '';
-  if(watch.sel && watch.sel[0]==='r'){ const n = Number(watch.sel.slice(1)); body = `<div class="w-now"><span class="w-tag">ROUND ${n}</span><span class="w-time">${escapeHTML(roundTimeFor(n))}</span></div>`+wRoundHTML(n); }
+  if(watch.sel && watch.sel[0]==='r'){ const n = Number(watch.sel.slice(1)); body = `<div class="w-now">${wStatusTag('r'+n, !isRoundSkipped(n)&&roundComplete(n))}<span class="w-time">Round ${n} · ${escapeHTML(roundTimeFor(n))}</span></div>`+wRoundHTML(n); }
   else if(watch.sel){ const g = PLAYOFF_STAGE_GROUPS.find(x=>'g'+x.key===watch.sel); if(g) body = wGroupHTML(g); }
   document.getElementById('w-match-body').innerHTML = body;
   // LEADERBOARD
@@ -3654,6 +3677,8 @@ function viewerApplyTimer(t, ts, now){
   } else { timerEndAt = null; timerRemainingSecs = remaining; }
   document.body.classList.toggle('is-changeover', timerMode==='changeover');
   viewerTick();
+  if(prevMode!==t.mode){ try{ wRender(); }catch(e){} }
+  try{ updateSchedPills(); }catch(e){}
 }
 let viewerAgeTick = 0;
 function viewerTick(){
