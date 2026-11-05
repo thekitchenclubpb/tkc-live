@@ -452,10 +452,12 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 /* ── LIVE SYNC / VIEWER ── */
 #sync-pill{position:fixed;left:10px;bottom:74px;z-index:9000;font-family:var(--fd);font-weight:800;font-size:.7rem;letter-spacing:.8px;padding:.4rem .75rem;border-radius:999px;border:1.5px solid rgba(244,240,230,.35);background:rgba(23,61,50,.94);color:var(--cream);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.35);}
 #sync-pill.ok{border-color:#6FBF73;color:#6FBF73;}
+.app-header #sync-pill{position:static;margin-left:auto;margin-right:.2rem;box-shadow:none;font-size:.62rem;padding:.3rem .65rem;white-space:nowrap;flex:0 0 auto;}
+@media(min-width:1100px){ .app-header #sync-pill{font-size:.8rem;padding:.35rem .9rem;} }
 #sync-pill.warn{border-color:#E8D26B;color:#E8D26B;}
 #sync-pill.bad{border-color:#E0745A;color:#E0745A;}
-#sync-pill.view{cursor:default;}
-.kc-viewer #sync-pill{cursor:default;}
+#sync-pill.view{cursor:pointer;}
+
 @media(min-width:1100px){ #sync-pill{font-size:.95rem;padding:.5rem 1rem;} }
 .kc-ov{position:fixed;inset:0;z-index:9500;background:rgba(10,26,21,.78);display:flex;align-items:center;justify-content:center;padding:1rem;}
 .kc-ov-box{background:var(--forest2);border:1px solid rgba(160,170,89,.45);border-radius:16px;padding:1.2rem 1.2rem 1rem;max-width:460px;width:100%;color:var(--cream);font-family:var(--fb);}
@@ -490,10 +492,14 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 #watch-nav button{flex:1;min-height:48px;border-radius:12px;border:1px solid rgba(160,170,89,.3);background:transparent;color:var(--cream);font-family:var(--fb);font-weight:700;font-size:.62rem;letter-spacing:.2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;}
 #watch-nav button b{font-size:1.1rem;line-height:1;}
 #watch-nav button.on{background:var(--clay);border-color:var(--clay);}
-.w-timer .timer-panel{margin:0 0 .9rem;padding:.7rem .8rem .8rem;}
-.w-timer .timer-ring-wrap{width:150px;height:150px;margin:.1rem auto;}
-.w-timer .timer-display{font-size:2.3rem;}
-.w-timer .timer-panel-label{font-size:.8rem;margin-bottom:.2rem;}
+.w-timer .timer-panel{height:auto !important;min-height:0 !important;display:grid;grid-template-columns:1fr auto;align-items:center;gap:.35rem .8rem;padding:.6rem .95rem .75rem;text-align:left;margin:0 0 .8rem;}
+.w-timer .timer-panel-label{margin:0;font-size:.72rem;line-height:1.25;}
+.w-timer .timer-ring-wrap{position:static;width:auto;height:auto !important;min-height:0;margin:0;display:block;container-type:normal;}
+.w-timer .timer-ring{display:none;}
+.w-timer .timer-display{font-size:2.6rem;letter-spacing:0;}
+.w-bar{grid-column:1/-1;height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;}
+.w-bar i{display:block;height:100%;width:100%;background:var(--olive);border-radius:99px;transition:width .25s linear;}
+.w-bar.warn i{background:var(--clay);}.w-bar.done i{background:var(--red);}.w-bar.co i{background:#E8D26B;}
 .w-now{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:0 0 .6rem;}
 .w-now .w-tag{font-family:var(--fd);font-weight:800;font-size:.72rem;letter-spacing:1px;padding:.25rem .65rem;border-radius:999px;background:rgba(160,170,89,.2);color:var(--olive);}
 .w-now .w-time{font-size:.82rem;color:var(--muted);}
@@ -501,16 +507,18 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 .wm.c6{border-top-color:#6FBF73;}.wm.c7{border-top-color:#E8D26B;}.wm.c8{border-top-color:var(--olive);}.wm.c9{border-top-color:var(--clay);}
 .wm-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;font-family:var(--fd);font-weight:800;font-size:.78rem;letter-spacing:1px;color:var(--muted);}
 .wm-top i{font-style:normal;color:var(--olive);font-size:.7rem;}
-.wm-row{display:flex;align-items:center;gap:.6rem;padding:.35rem .4rem;border-radius:10px;}
-.wm-row.win{background:rgba(111,191,115,.14);}
-.wm-names{flex:1;min-width:0;display:flex;flex-direction:column;gap:.3rem;}
-.wm-p{display:flex;align-items:center;gap:.5rem;font-family:var(--fd);font-weight:700;font-size:1.02rem;min-width:0;}
+.wm-body{display:grid;grid-template-columns:1fr auto 1fr;gap:.35rem;align-items:stretch;}
+.wm-side{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:.55rem .35rem .45rem;border-radius:12px;min-width:0;background:rgba(0,0,0,.14);}
+.wm-side.win{background:rgba(111,191,115,.16);}
+.wm-lab{font-size:.6rem;font-weight:800;letter-spacing:1.5px;color:var(--muted);}
+.wm-side.win .wm-lab{color:#6FBF73;}
+.wm-tbd{color:var(--muted);font-style:italic;font-size:.9rem;padding:.4rem .2rem;}
+.wm-p{display:flex;align-items:center;justify-content:center;gap:.4rem;font-family:var(--fd);font-weight:700;font-size:.98rem;min-width:0;max-width:100%;}
 .wm-p span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.wm-p .av{width:28px;height:28px;}
-.wm-score{font-family:var(--fd);font-weight:800;font-size:2rem;min-width:2.4rem;text-align:center;color:var(--cream);}
-.wm-row.win .wm-score{color:#6FBF73;}
-.wm-row.tbd .wm-names{color:var(--muted);font-style:italic;font-size:.9rem;}
-.wm-vs{text-align:center;font-size:.7rem;font-weight:800;letter-spacing:2px;color:var(--olive);margin:.1rem 0;}
+.wm-p .av{width:26px;height:26px;}
+.wm-score{font-family:var(--fd);font-weight:800;font-size:2.6rem;line-height:1;text-align:center;color:var(--cream);margin-top:auto;padding-top:.2rem;}
+.wm-side.win .wm-score{color:#6FBF73;}
+.wm-vs{align-self:center;font-size:.72rem;font-weight:800;letter-spacing:1px;color:var(--olive);}
 .w-rest{font-size:.82rem;color:var(--muted);margin:.2rem 0 1rem;}
 .w-chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem 0 .7rem;margin:0 -1rem;padding-left:1rem;padding-right:1rem;-webkit-overflow-scrolling:touch;}
 .w-chips button{flex:0 0 auto;min-height:42px;padding:0 .95rem;border-radius:999px;border:1.5px solid rgba(160,170,89,.4);background:transparent;color:var(--cream);font-family:var(--fd);font-weight:800;font-size:.85rem;cursor:pointer;white-space:nowrap;}
@@ -3412,12 +3420,12 @@ function setSync(st){
     else if(st==='live'){ txt='● LIVE VIEW · watch only'; cls='ok view'; }
     else { txt='LIVE VIEW · connecting…'; cls='view'; }
   } else {
-    if(st==='ok'){ txt='● LIVE VIEW SYNCED'; cls='ok'; }
-    else if(st==='retry'){ txt='○ SYNC OFFLINE · retrying'; cls='warn'; }
-    else if(st==='badkey'){ txt='⚠ SYNC KEY WRONG · tap'; cls='bad'; }
-    else if(st==='hold'){ txt='LIVE VIEW · tap to choose'; cls='warn'; }
-    else if(st==='conflict'){ txt='⚠ ANOTHER DEVICE IS SCORING · tap'; cls='bad'; }
-    else if(st==='nokey'){ txt='LIVE VIEW OFF · tap to set up'; cls=''; }
+    if(st==='ok'){ txt='● SYNCED'; cls='ok'; }
+    else if(st==='retry'){ txt='○ OFFLINE'; cls='warn'; }
+    else if(st==='badkey'){ txt='⚠ KEY WRONG'; cls='bad'; }
+    else if(st==='hold'){ txt='TAP TO CHOOSE'; cls='warn'; }
+    else if(st==='conflict'){ txt='⚠ 2ND DEVICE'; cls='bad'; }
+    else if(st==='nokey'){ txt='LIVE VIEW OFF'; cls=''; }
     else { txt='LIVE VIEW · connecting…'; cls=''; }
   }
   el.textContent = txt; el.className = cls;
@@ -3524,16 +3532,17 @@ async function syncBoot(){
 
 // ── Watch page: its own read-only screens built from the synced data ──
 const watch = {tab:'w-live', sel:null};
-function wTeam(names, score, win){
+function wTeam(names, score, win, label){
   const nm = names.map(n=>`<div class="wm-p">${avatarHTML(n)}<span>${escapeHTML(n)}</span></div>`).join('');
-  return `<div class="wm-row${win?' win':''}"><div class="wm-names">${nm}</div><div class="wm-score">${score===null?'–':score}</div></div>`;
+  return `<div class="wm-side${win?' win':''}"><div class="wm-lab">${label}</div>${nm}<div class="wm-score">${score===null?'–':score}</div></div>`;
 }
 function wMatch(courtLabel, court, A, B, sc, tag){
-  if(!A||!B) return `<div class="wm c${court}"><div class="wm-top"><span>${escapeHTML(courtLabel)}</span><i>${escapeHTML(tag||'')}</i></div><div class="wm-row tbd"><div class="wm-names">To be decided from the results so far</div></div></div>`;
+  const head = `<div class="wm-top"><span>${escapeHTML(courtLabel)}</span><i>${escapeHTML(tag||'')}</i></div>`;
+  if(!A||!B) return `<div class="wm c${court}">${head}<div class="wm-tbd">To be decided from the results so far</div></div>`;
   const has = sc && Number.isFinite(sc.a) && Number.isFinite(sc.b);
   const done = has && sc.a!==sc.b;
-  return `<div class="wm c${court}"><div class="wm-top"><span>${escapeHTML(courtLabel)}</span><i>${escapeHTML(tag||'')}</i></div>`+
-    wTeam(A, has?sc.a:null, done && sc.a>sc.b)+`<div class="wm-vs">VS</div>`+wTeam(B, has?sc.b:null, done && sc.b>sc.a)+`</div>`;
+  return `<div class="wm c${court}">${head}<div class="wm-body">`+
+    wTeam(A, has?sc.a:null, done && sc.a>sc.b, 'TEAM 1')+`<div class="wm-vs">VS</div>`+wTeam(B, has?sc.b:null, done && sc.b>sc.a, 'TEAM 2')+`</div></div>`;
 }
 function wRoundHTML(n){
   if(!SCHEDULE[n]) return '<div class="w-empty">Not in play.</div>';
@@ -3606,7 +3615,7 @@ function wRender(){
 }
 function watchInit(){
   const slot = document.getElementById('w-timer-slot'), tp = document.querySelector('.timer-panel');
-  if(slot && tp) slot.appendChild(tp);
+  if(slot && tp){ slot.appendChild(tp); const bar = document.createElement('div'); bar.className='w-bar'; bar.id='w-bar'; bar.innerHTML='<i></i>'; tp.appendChild(bar); }
   document.getElementById('watch-nav').addEventListener('click', e=>{
     const b = e.target.closest('button[data-w]'); if(!b) return;
     watch.tab = b.dataset.w;
@@ -3646,22 +3655,41 @@ function viewerApplyTimer(t, ts, now){
   document.body.classList.toggle('is-changeover', timerMode==='changeover');
   viewerTick();
 }
+let viewerAgeTick = 0;
 function viewerTick(){
+  if(++viewerAgeTick % 4 === 0) viewerPillAge();
   if(timerRunning && timerEndAt!==null) timerRemainingSecs = Math.max(0,(timerEndAt-Date.now())/1000);
   renderTimerDisplay();
+  const b = document.getElementById('w-bar');
+  if(b){
+    const f = timerTotalSecs>0 ? Math.max(0,Math.min(1,timerRemainingSecs/timerTotalSecs)) : 0;
+    b.firstChild.style.width = (f*100)+'%';
+    b.className = 'w-bar'+(timerRemainingSecs<=0?' done':(timerMode==='changeover'?' co':(timerRemainingSecs<=30?' warn':'')));
+  }
 }
-async function viewerPoll(){
+async function viewerPoll(force){
+  // one request at a time; a hung request (phone on weak signal) gives up after 6s so the next poll can run
+  if(sync.polling && Date.now()-sync.pollStart < 7000) return;
+  sync.polling = true; sync.pollStart = Date.now();
+  const ac = new AbortController(); const to = setTimeout(()=>ac.abort(), 6000);
   try{
-    const r = await fetch(SYNC_URL, {cache:'no-store'});
+    // the changing ?t= stops phones, carriers or CDNs from handing back an old saved answer
+    const r = await fetch(SYNC_URL+'?t='+Date.now(), {cache:'no-store', signal:ac.signal, headers:{'cache-control':'no-cache'}});
     if(!r.ok) throw new Error('http '+r.status);
     const j = await r.json();
-    sync.fails = 0;
+    sync.fails = 0; sync.lastOk = Date.now();
     const sig = JSON.stringify(j.data||{});
     if(sig !== sync.sig){ sync.sig = sig; viewerApplyData(j.data); viewerRender(); }
     viewerApplyTimer(j.timer, j.ts, j.now);
     sync.scorerAge = j.ts ? (j.now - j.ts)/1000 : null;
     if(!j.rev) setSync('wait'); else if(sync.scorerAge > 45) setSync('stale'); else setSync('live');
   }catch(e){ sync.fails++; if(sync.fails>=2) setSync('lost'); }
+  finally{ clearTimeout(to); sync.polling = false; }
+}
+function viewerPillAge(){
+  const el = document.getElementById('sync-pill'); if(!el || sync.status!=='live' || !sync.lastOk) return;
+  const a = Math.max(0, Math.round((Date.now()-sync.lastOk)/1000));
+  el.textContent = '● LIVE · updated '+(a<2?'just now':a+'s ago');
 }
 function viewerBlock(e){
   const t = e.target; if(!t || !t.closest) return;
@@ -3686,8 +3714,13 @@ function initSync(){
     ['click','change','input','keydown','keypress','paste','dblclick'].forEach(ev=> document.addEventListener(ev, viewerBlock, true));
     const hs = document.querySelector('.header-round'); if(hs) hs.textContent = 'WATCH';
     setSync('');
-    viewerPoll(); setInterval(viewerPoll, 4000); setInterval(viewerTick, 250);
+    viewerPoll(); setInterval(viewerPoll, 2500); setInterval(viewerTick, 250);
+    // phones freeze pages when the screen sleeps: catch up the moment the page wakes, however it wakes
     document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) viewerPoll(); });
+    window.addEventListener('pageshow', ()=> viewerPoll());
+    window.addEventListener('focus', ()=> viewerPoll());
+    window.addEventListener('online', ()=> viewerPoll());
+    pill.addEventListener('click', ()=> viewerPoll());
     return;
   }
   // scorer: a one-time key can ride in on the address (…/?key=SECRET) so nobody has to type it on the TV
@@ -3695,6 +3728,7 @@ function initSync(){
     const m = location.search.match(/[?&]key=([^&]+)/);
     if(m){ setSyncKey(decodeURIComponent(m[1])); history.replaceState(null,'',location.pathname+location.hash); }
   }catch(e){}
+  { const h = document.querySelector('.app-header'), hr = document.querySelector('.header-round'); if(h && hr) h.insertBefore(pill, hr); }
   pill.addEventListener('click', openSyncPanel);
   kcOnWrite = function(k){ if(/^kc_nov6_/.test(k) && k!=='kc_nov6_autosig') syncSoon(); };
   setSync(syncKey() ? '' : 'nokey');
