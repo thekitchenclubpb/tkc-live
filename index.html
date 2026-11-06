@@ -1370,7 +1370,7 @@ function applyPlayoffMode(){
   meta.sf1 = Object.assign({court:6, label:'SF1'}, timed);
   meta.sf2 = Object.assign({court:7, label:'SF2'}, timed);
   meta.fifth = Object.assign({court:8, label:'Battle for 5th'}, timed);
-  meta.third = {court:7, label:'Battle for 3rd', raceTo:15, swapAt:8};
+  meta.third = {court:7, label:'Battle for 3rd', raceTo:11, swapAt:6};
   meta.champ = {court:6, label:'Championship', raceTo:15, swapAt:8};
   PLAYOFF_META = meta;
   const order = ['makeup','qf1','qf2','pl1','pl2','sf1','sf2','fifth','third','champ'].filter(k=>meta[k]);
@@ -1392,7 +1392,7 @@ function applyPlayoffMode(){
   groups.push({key:'qf', label:'Quarterfinals', stages:['qf1','qf2'].concat(pl>=1?['pl1']:[]).concat(pl>=2?['pl2']:[]), time:fmt(tQF), heading:qfHeading});
   groups.push({key:'sf', label:'Semifinals', stages:['sf1','sf2','fifth'], time:fmt(tSF),
     heading:'The lower-ranked QF winner joins the higher top-4 seed; the higher-ranked QF winner joins the other · QF losers play for 5th'});
-  groups.push({key:'finals', label:'Finals', stages:['third','champ'], time:fmt(tFin)+' – '+(lr?minToClock(tFin+15):''), heading:'Both finals play at once · race to 15, win by 2 · swap sides at 8'});
+  groups.push({key:'finals', label:'Finals', stages:['third','champ'], time:fmt(tFin)+' – '+(lr?minToClock(tFin+15):''), heading:'Both finals play at once · Championship: race to 15, win by 2 (swap at 8) · Battle for 3rd: race to 11, win by 2 (swap at 6)'});
   PLAYOFF_STAGE_GROUPS = groups;
 }
 
@@ -1732,7 +1732,7 @@ function resetPlayoffs(){
 // ═══════════════════════════════════════
 const PO_THEME = {
   champ:  {cls:'po-champ',  icon:'\uD83C\uDFC6', title:'CHAMPIONSHIP',     sub:'Race to 15, win by 2 \u00b7 swap sides at 8'},
-  third:  {cls:'po-third',  icon:'\uD83E\uDD49', title:'BATTLE FOR 3RD',   sub:'Race to 15, win by 2 \u00b7 swap sides at 8'},
+  third:  {cls:'po-third',  icon:'\uD83E\uDD49', title:'BATTLE FOR 3RD',   sub:'Race to 11, win by 2 \u00b7 swap sides at 6'},
   fifth:  {cls:'po-fifth',  icon:'5\u1D57\u02B0', title:'BATTLE FOR 5TH',  sub:'10 min or race to 11, win by 2 \u00b7 swap at 6'},
   seventh:{cls:'po-seventh',icon:'7\u1D57\u02B0', title:'BATTLE FOR 7TH',  sub:'Race to 11 \u00b7 swap sides at 6'}
 };
