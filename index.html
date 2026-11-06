@@ -481,7 +481,7 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 
 /* ── WATCH PAGE (read-only, phone first) ── */
 .kc-viewer .hero,.kc-viewer .tab-bar,.kc-viewer #sec-checkin,.kc-viewer #sec-now-playing,.kc-viewer #sec-leaderboard{display:none !important;}
-#watch{display:none;padding:.9rem 1rem 8.5rem;max-width:760px;margin:0 auto;}
+#watch{display:none;padding:.9rem 1rem .5rem;max-width:760px;margin:0 auto;}
 .kc-viewer #watch{display:block;}
 .w-panel{display:none;}.w-panel.on{display:block;}
 .w-h{font-family:var(--fd);font-weight:800;font-size:1.25rem;margin:.2rem 0 .7rem;color:var(--cream);}
@@ -557,7 +557,7 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
 .w-pc.gone{opacity:.5;border-style:dashed;border-color:#E0745A;}.w-pc.gone small{color:#E0745A;}
 .w-count{font-family:var(--fd);font-weight:800;font-size:1.05rem;margin-bottom:.7rem;}.w-count b{color:var(--olive);font-size:1.5rem;}
 .w-empty{color:var(--muted);text-align:center;padding:1.5rem 0;font-size:.9rem;}
-#watch #sync-pill{position:static;display:inline-block;margin:0 0 .7rem;box-shadow:none;font-size:.66rem;padding:.3rem .7rem;}
+#watch #sync-pill{position:static;display:inline-block;margin:0 0 .5rem;min-width:4.5rem;text-align:center;box-shadow:none;font-size:.66rem;padding:.3rem .7rem;}
 </style>
 </head>
 <body>
@@ -2869,7 +2869,7 @@ async function emailResults(auto){
   const csv = buildResultsCSV(); const errs = [];
   for(const [name,fn] of [['Netlify',sendViaNetlify],['FormSubmit',sendViaFormSubmit]]){
     try{ await fn(subject, csv);
-      const m = (auto?'Auto-sent':'Sent')+' via '+name+' at '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+'. Check '+RESULTS_EMAIL+(name==='FormSubmit'?' (first time: confirm the activation email from FormSubmit).':'.');
+      const m = (auto?'Auto-sent':'Sent')+' via '+name+' at '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',timeZone:KC_TZ})+'. Check '+RESULTS_EMAIL+(name==='FormSubmit'?' (first time: confirm the activation email from FormSubmit).':'.');
       backupStatus(m); if(!auto) showToast(m, 12000); return true;
     }catch(e){ errs.push(name+': '+e.message); }
   }
@@ -3245,7 +3245,9 @@ function playBell(){
 // ═══════════════════════════════════════
 const STARTS_KEY = 'kc_nov6_starts';
 function getStarts(){ return kcGetJSON(STARTS_KEY, {}); }
-function nowMinutesOfDay(ms){ const d = new Date(ms===undefined ? Date.now() : ms); return d.getHours()*60 + d.getMinutes() + d.getSeconds()/60; }
+const KC_TZ = 'Australia/Melbourne';
+const _kcFmt = new Intl.DateTimeFormat('en-GB',{timeZone:KC_TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+function nowMinutesOfDay(ms){ const p = _kcFmt.formatToParts(new Date(ms===undefined ? Date.now() : ms)); const g=t=>Number((p.find(x=>x.type===t)||{}).value||0); return (g('hour')%24)*60 + g('minute') + g('second')/60; }
 function firstClockMin(str){ const m = /(\d+:\d+ (?:AM|PM))/.exec(String(str||'')); return m ? clockToMin(m[1]) : null; }
 // {key, mins}: the stage on screen right now and when it is scheduled to start
 function currentSchedTarget(){
@@ -3429,7 +3431,7 @@ function setSync(st){
     if(st==='lost'){ txt='CONNECTION LOST · retrying'; cls='bad view'; }
     else if(st==='wait'){ txt='WAITING FOR SCORER'; cls='warn view'; }
     else if(st==='stale'){ txt='LIVE VIEW · scorer quiet '+Math.round(sync.scorerAge||0)+'s'; cls='warn view'; }
-    else if(st==='live'){ txt='● LIVE VIEW · watch only'; cls='ok view'; }
+    else if(st==='live'){ txt='● LIVE'; cls='ok view'; }
     else { txt='LIVE VIEW · connecting…'; cls='view'; }
   } else {
     if(st==='ok'){ txt='● SYNCED'; cls='ok'; }
@@ -3717,7 +3719,7 @@ async function viewerPoll(force){
 function viewerPillAge(){
   const el = document.getElementById('sync-pill'); if(!el || sync.status!=='live' || !sync.lastOk) return;
   const a = Math.max(0, Math.round((Date.now()-sync.lastOk)/1000));
-  el.textContent = '● LIVE · updated '+(a<2?'just now':a+'s ago');
+  el.textContent = '● LIVE';
 }
 function viewerBlock(e){
   const t = e.target; if(!t || !t.closest) return;
