@@ -108,12 +108,48 @@ body{background:var(--forest);color:var(--cream);font-family:var(--fb);min-heigh
 .timer-panel-label{font-family:var(--fb);font-weight:700;font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
 .timer-ring-wrap{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;container-type:size;margin:.2rem 0 1rem;}
 .timer-ring{position:absolute;left:50%;top:50%;width:min(100cqw,100cqh);height:min(100cqw,100cqh);transform:translate(-50%,-50%) rotate(-90deg);overflow:visible;}
-.timer-ring circle{fill:none;stroke-width:5.5;}
+.timer-ring circle{fill:none;stroke-width:9;}
+.timer-ring-wrap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.timer-hint{font-size:.78rem;color:var(--muted);margin:-.4rem 0 .7rem;}
+.kc-viewer .timer-hint{display:none;}
+.timer-controls{grid-template-columns:1fr 1fr !important;}
+.timer-pause{display:none;}
+body.timer-running .timer-pause{display:block;}
+body.timer-running .timer-start{display:none;}
+.timer-co-label{font-size:.65rem !important;margin-bottom:.25rem !important;}
+.timer-co-btn{font-size:.9rem !important;padding:.4rem .2rem !important;}
+.timer-co-go{min-height:46px !important;font-size:.95rem !important;padding:.5rem !important;}
+.kc-tset{position:fixed;inset:0;z-index:9400;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:1rem;}
+.kc-tset-box{background:var(--forest2);border:1px solid rgba(160,170,89,.4);border-radius:var(--r);padding:1.3rem 1.2rem;width:min(92vw,420px);text-align:center;}
+.kc-tset-box h3{font-family:var(--fd);font-weight:800;font-size:1.2rem;margin-bottom:.9rem;}
+.kc-tset-row{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.8rem;}
+.kc-tset-row input{width:5.2rem;font-family:var(--fd);font-weight:700;font-size:2.4rem;text-align:center;background:var(--forest);color:var(--cream);border:2px solid rgba(160,170,89,.5);border-radius:12px;padding:.4rem 0;}
+.kc-tset-row span{font-family:var(--fd);font-weight:800;font-size:2.4rem;}
+.kc-tset-lbl{display:flex;justify-content:center;gap:5.2rem;font-size:.7rem;letter-spacing:1px;color:var(--muted);margin:-.4rem 0 .9rem;}
+.kc-tset-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-bottom:1rem;}
+.kc-tset-chips button{background:var(--forest);border:1px solid rgba(255,255,255,.15);color:var(--cream);font-weight:700;padding:.6rem 0;border-radius:10px;cursor:pointer;}
+.kc-tset-disp{font-family:var(--fd);font-weight:800;font-size:3.4rem;letter-spacing:2px;background:var(--forest);border:2px solid rgba(160,170,89,.5);border-radius:14px;padding:.3rem 0;margin-bottom:.2rem;}
+.kc-tset-lbl2{font-size:.7rem;letter-spacing:2px;color:var(--muted);margin-bottom:.8rem;}
+.kc-tset-fields{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.4rem;}
+.kc-tset-f{flex:1;max-width:150px;background:var(--forest);border:2px solid rgba(255,255,255,.15);border-radius:14px;padding:.4rem 0 .3rem;cursor:pointer;}
+.kc-tset-f b{display:block;font-family:var(--fd);font-weight:800;font-size:3rem;line-height:1.1;}
+.kc-tset-f small{font-size:.7rem;letter-spacing:2px;color:var(--muted);}
+.kc-tset-f.on{border-color:var(--olive);box-shadow:0 0 0 3px rgba(160,170,89,.3);}
+.kc-tset-colon{font-family:var(--fd);font-weight:800;font-size:2.6rem;}
+.kc-tset-hint{font-size:.75rem;color:var(--muted);margin-bottom:.8rem;}
+.kc-tset-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1rem;}
+.kc-tset-pad button{background:var(--forest);border:1px solid rgba(255,255,255,.15);color:var(--cream);font-family:var(--fd);font-weight:700;font-size:1.7rem;min-height:58px;border-radius:12px;cursor:pointer;}
+.kc-tset-pad button:active{background:rgba(160,170,89,.35);}
+.kc-tset-pad .kc-tset-sm{font-size:1rem;color:var(--muted);}
+.kc-tset-act{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.kc-tset-act button{min-height:52px;border-radius:var(--r-sm);border:none;font-weight:800;font-size:1.05rem;cursor:pointer;}
+.kc-tset-ok{background:var(--olive);color:var(--forest);}
+.kc-tset-no{background:rgba(255,255,255,.1);color:var(--cream);}
 .timer-ring-track{stroke:rgba(255,255,255,.09);}
 .timer-ring-fill{stroke:var(--olive);stroke-linecap:round;stroke-dasharray:100 100;stroke-dashoffset:0;transition:stroke-dashoffset .3s linear,stroke .3s;}
 .timer-ring-wrap.timer-warn .timer-ring-fill{stroke:var(--clay);}
 .timer-ring-wrap.timer-done .timer-ring-fill{stroke:var(--red);animation:timerPulse 1s infinite;}
-.timer-display{position:relative;font-family:var(--fd);font-weight:700;font-size:calc(min(100cqw,100cqh) * .235);line-height:1;color:var(--cream);letter-spacing:-1px;font-variant-numeric:tabular-nums;}
+.timer-display{position:relative;font-family:var(--fd);font-weight:700;font-size:calc(min(100cqw,100cqh) * .285);line-height:1;color:var(--cream);letter-spacing:-1px;font-variant-numeric:tabular-nums;}
 .timer-display.timer-warn{color:var(--clay);}
 .timer-display.timer-done{color:var(--red);animation:timerPulse 1s infinite;}
 @media(max-width:879px){ .timer-ring-wrap{flex:none;height:min(86vw,420px);} }
@@ -133,6 +169,28 @@ body{background:var(--forest);color:var(--cream);font-family:var(--fb);min-heigh
 .timer-panel-label.is-done{color:var(--red);font-size:1.1rem;animation:timerPulse 1s infinite;}
 .timer-test{margin-top:.8rem;background:none;border:none;color:var(--muted);font-size:.85rem;text-decoration:underline;cursor:pointer;}
 
+
+
+/* ── timer polish ── */
+.timer-panel{padding:.9rem .5rem .8rem !important;}
+@media(min-width:880px){ .live-layout{grid-template-columns:minmax(0,1fr) clamp(340px,34vw,560px) !important;} }
+.timer-ring-wrap{margin:.1rem 0 .7rem !important;}
+.timer-display{font-size:calc(min(100cqw,100cqh) * .255) !important;}
+.timer-edit{position:absolute;left:50%;top:70%;transform:translateX(-50%);font-size:1.5rem;color:var(--muted);opacity:.7;pointer-events:none;}
+body.timer-running .timer-edit,.kc-viewer .timer-edit{display:none;}
+.timer-controls{padding:0 .6rem;}
+.w-timer .timer-panel{padding:.6rem .95rem .75rem !important;}
+.timer-co-row{display:grid;grid-template-columns:auto 1fr auto;gap:.5rem;align-items:center;margin:.7rem .6rem 0;}
+.timer-co-row .timer-co-label{margin:0 !important;font-size:.62rem !important;}
+.timer-co-row .timer-co-presets{margin:0 !important;gap:.25rem;}
+.timer-co-row .timer-co-btn{font-size:.8rem !important;padding:.45rem .1rem !important;}
+.timer-co-row .timer-co-go{width:auto !important;min-height:0 !important;padding:.45rem .7rem !important;font-size:.8rem !important;border-radius:10px;background:transparent;border:1px solid var(--clay);color:var(--clay);}
+.timer-sound-row{display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:.5rem;}
+.timer-sound-row .timer-test{margin:0;font-size:1.1rem;text-decoration:none;padding:.2rem .4rem;}
+.timer-sound-row .timer-sound-status{margin:0;min-height:0;}
+.timer-ring-wrap.timer-urgent .timer-ring-fill,.timer-display.timer-urgent{animation:timerPulse .8s infinite;}
+.kc-viewer .timer-co-row,.kc-viewer .timer-sound-row{display:none;}
+@keyframes kcHoldNone{}
 
 /* ── TV / WIDE LAYOUT: courts side by side, timer level with the games ── */
 .round-skip-top{margin-left:auto;}
@@ -660,28 +718,26 @@ footer.site-footer{text-align:center;color:var(--muted);font-size:.7rem;padding:
             <circle class="timer-ring-fill" id="timer-ring-fill" cx="50" cy="50" r="45" pathLength="100"></circle>
           </svg>
           <div class="timer-display" id="timer-display" role="timer" aria-live="off">10:00</div>
-        </div>
-        <div class="timer-co-label">Game time (mins)</div>
-        <div class="timer-presets">
-          <button type="button" class="timer-preset-btn" data-mins="5">5</button>
-          <button type="button" class="timer-preset-btn active" data-mins="10">10</button>
-          <button type="button" class="timer-preset-btn" data-mins="12">12</button>
-          <button type="button" class="timer-preset-btn" data-mins="15">15</button>
+          <div class="timer-edit" aria-hidden="true">&#9998;</div>
         </div>
         <div class="timer-controls">
           <button type="button" class="timer-btn timer-start" id="timer-start">Start</button>
           <button type="button" class="timer-btn timer-pause" id="timer-pause" disabled>Pause</button>
           <button type="button" class="timer-btn timer-reset" id="timer-reset">Reset</button>
         </div>
-        <div class="timer-co-label">Changeover (mins)</div>
-        <div class="timer-co-presets">
-          <button type="button" class="timer-co-btn" data-co="1">1</button>
-          <button type="button" class="timer-co-btn active" data-co="2">2</button>
-          <button type="button" class="timer-co-btn" data-co="5">5</button>
+        <div class="timer-co-row">
+          <div class="timer-co-label">Changeover</div>
+          <div class="timer-co-presets">
+            <button type="button" class="timer-co-btn" data-co="1">1 min</button>
+            <button type="button" class="timer-co-btn active" data-co="2">2 min</button>
+            <button type="button" class="timer-co-btn" data-co="5">5 min</button>
+          </div>
+          <button type="button" class="timer-btn timer-co-go" id="timer-co-go">Start now</button>
         </div>
-        <button type="button" class="timer-btn timer-co-go" id="timer-co-go">Start changeover</button>
-        <button type="button" class="timer-test" id="timer-test-bell">&#128276; Test bell sound</button>
-        <div class="timer-sound-status" id="timer-sound-status" aria-live="polite"></div>
+        <div class="timer-sound-row">
+          <button type="button" class="timer-test" id="timer-test-bell" aria-label="Test bell sound">&#128276;</button>
+          <div class="timer-sound-status" id="timer-sound-status" aria-live="polite"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -3030,6 +3086,7 @@ function renderTimerDisplay(){
   const el = document.getElementById('timer-display');
   if(!el) return;
   el.textContent = formatTime(timerRemainingSecs);
+  try{ document.body.classList.toggle('timer-running', !!timerRunning); const sb=document.getElementById('timer-start'); if(sb) sb.textContent = (!timerRunning && timerMode==='game' && timerRemainingSecs < timerTotalSecs - 0.5) ? 'Resume' : 'Start'; }catch(e){}
   const wrap = document.getElementById('timer-ring-wrap');
   const ring = document.getElementById('timer-ring-fill');
   const lab = document.querySelector('.timer-panel-label');
@@ -3037,10 +3094,13 @@ function renderTimerDisplay(){
   if(wrap) wrap.classList.toggle('timer-co', timerMode==='changeover');
   const cogo = document.getElementById('timer-co-go');
   if(cogo) cogo.textContent = timerMode==='changeover' ? 'Skip changeover' : 'Start changeover';
-  const state = timerRemainingSecs <= 0 ? 'timer-done' : (timerRemainingSecs <= 30 ? 'timer-warn' : '');
+  const warnAt = timerMode==='changeover' ? 30 : 60;
+  const state = timerRemainingSecs <= 0 ? 'timer-done' : (timerRemainingSecs <= warnAt ? 'timer-warn' : '');
+  const urgent = timerRunning && timerRemainingSecs > 0 && timerRemainingSecs <= 10;
   [el, wrap].forEach(node=>{
     if(!node) return;
-    node.classList.remove('timer-warn', 'timer-done');
+    node.classList.remove('timer-warn', 'timer-done', 'timer-urgent');
+    if(urgent) node.classList.add('timer-urgent');
     if(state) node.classList.add(state);
   });
   if(ring){
@@ -3052,7 +3112,7 @@ function renderTimerDisplay(){
 
 function selectPreset(mins){
   pauseTimer();
-  gameSecs = mins * 60;
+  gameSecs = Math.round(mins * 60);
   if(timerMode==='changeover') endChangeover(true);
   timerTotalSecs = gameSecs;
   timerRemainingSecs = timerTotalSecs;
@@ -3136,6 +3196,7 @@ function startChangeover(){
 function endChangeover(silent){
   timerRunning = false; stopTimerInterval(); timerEndAt = null;
   timerMode = 'game';
+  gameSecs = 10 * 60;   // every new game starts at 10:00; tap the clock to change it for one game
   timerTotalSecs = gameSecs;
   timerRemainingSecs = gameSecs;
   document.body.classList.remove('is-changeover');
@@ -3257,7 +3318,7 @@ function ensureBuzzerElement(){
 function setSoundStatus(msg, warn){
   const el = document.getElementById('timer-sound-status');
   if(!el) return;
-  el.textContent = msg || (timerSoundPrimed ? '\uD83D\uDD0A Sound ready' : "Tap 'Test bell sound' once to switch sound on");
+  el.textContent = msg || (timerSoundPrimed ? 'Sound on \u2713' : 'Sound switches on with your first tap');
   el.classList.toggle('warn', !!warn || (!msg && !timerSoundPrimed));
 }
 
@@ -3402,7 +3463,6 @@ function restoreTimerState(){
     timerRemainingSecs = Number.isFinite(st.rem) ? st.rem : st.total;
   }
   document.body.classList.toggle('is-changeover', timerMode==='changeover');
-  document.querySelectorAll('.timer-preset-btn').forEach(b=> b.classList.toggle('active', Number(b.dataset.mins)*60===gameSecs));
   document.querySelectorAll('.timer-co-btn').forEach(b=> b.classList.toggle('active', Number(b.dataset.co)===coMins));
   const sb = document.getElementById('timer-start'), pb = document.getElementById('timer-pause');
   if(sb) sb.disabled = timerRunning; if(pb) pb.disabled = !timerRunning;
@@ -3410,12 +3470,60 @@ function restoreTimerState(){
 }
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ try{ timerTick(); }catch(e){} updateWakeLock(); } });
 
+function openTimeSetter(){
+  if(KC_VIEWER) return;
+  if(timerRunning){ try{ showToast('Pause or reset the timer to change the time'); }catch(e){} return; }
+  if(timerMode==='changeover'){ try{ showToast('Changeover is running. Reset it to set the game time'); }catch(e){} return; }
+  if(document.getElementById('kc-tset')) return;
+  const cur = Math.round(timerTotalSecs);
+  const MAXM = 30;
+  const f = {m: String(Math.floor(cur/60)), s: String(cur%60)};
+  let act = 'm', fresh = true;
+  const ov = document.createElement('div'); ov.className='kc-tset'; ov.id='kc-tset';
+  ov.innerHTML = `<div class="kc-tset-box"><h3>Set game time</h3>
+    <div class="kc-tset-fields">
+      <div class="kc-tset-f" id="kc-f-m" data-f="m"><b>00</b><small>MIN</small></div><span class="kc-tset-colon">:</span>
+      <div class="kc-tset-f" id="kc-f-s" data-f="s"><b>00</b><small>SEC</small></div></div>
+    <div class="kc-tset-hint">Tap MIN or SEC, then use the numbers (max ${MAXM}:00)</div>
+    <div class="kc-tset-pad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button type="button" data-d="${n}">${n}</button>`).join('')}<button type="button" data-d="clr" class="kc-tset-sm">Clear</button><button type="button" data-d="0">0</button><button type="button" data-d="back" class="kc-tset-sm">&#9003;</button></div>
+    <div class="kc-tset-act"><button type="button" class="kc-tset-no" id="kc-tset-no">Cancel</button><button type="button" class="kc-tset-ok" id="kc-tset-ok">Set time</button></div></div>`;
+  document.body.appendChild(ov);
+  const num = k => parseInt(f[k]||'0',10)||0;
+  const draw = ()=>{
+    ['m','s'].forEach(k=>{ const el = ov.querySelector('#kc-f-'+k); el.querySelector('b').textContent = String(num(k)).padStart(2,'0'); el.classList.toggle('on', act===k); });
+  };
+  draw();
+  const close = ()=> ov.remove();
+  ov.querySelectorAll('[data-f]').forEach(el=> el.addEventListener('click', ()=>{ act = el.dataset.f; fresh = true; draw(); }));
+  ov.querySelectorAll('[data-d]').forEach(b=> b.addEventListener('click', ()=>{
+    const k = b.dataset.d, max = act==='m' ? MAXM : 59;
+    if(k==='clr'){ f[act] = '0'; fresh = true; }
+    else if(k==='back'){ f[act] = f[act].slice(0,-1) || '0'; fresh = false; }
+    else {
+      const next = (fresh ? '' : f[act]) + k;
+      const n = parseInt(next,10);
+      if(next.length <= 2 && n <= max){ f[act] = String(n); fresh = false;
+        if(next.length === 2 && act==='m'){ act = 's'; fresh = true; } }
+      else { try{ showToast(act==='m' ? 'Max '+MAXM+' minutes' : 'Seconds go up to 59'); }catch(e){} }
+    }
+    draw();
+  }));
+  ov.querySelector('#kc-tset-no').addEventListener('click', close);
+  ov.addEventListener('click', e=>{ if(e.target===ov) close(); });
+  ov.querySelector('#kc-tset-ok').addEventListener('click', ()=>{
+    let m = num('m'), sc = num('s');
+    if(m >= MAXM){ m = MAXM; sc = 0; }
+    const total = m*60 + sc;
+    if(total < 5){ try{ showToast('Pick at least 0:05'); }catch(e){} return; }
+    try{ primeTimerSound(); }catch(e){}
+    selectPreset(total/60); close();
+  });
+}
 function initTimer(){
   restoreTimerState();
   renderTimerDisplay();
-  document.querySelectorAll('.timer-preset-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=> selectPreset(Number(btn.dataset.mins)));
-  });
+  const ringWrap = document.getElementById('timer-ring-wrap');
+  if(ringWrap && !KC_VIEWER) ringWrap.addEventListener('click', openTimeSetter);
   document.querySelectorAll('.timer-co-btn').forEach(btn=> btn.addEventListener('click', ()=> selectChangeover(Number(btn.dataset.co))));
   const coGo = document.getElementById('timer-co-go');
   if(coGo) coGo.addEventListener('click', ()=>{ if(timerMode==='changeover') endChangeover(); else { primeTimerSound(); startChangeover(); } });
@@ -3425,14 +3533,30 @@ function initTimer(){
   const testBtn = document.getElementById('timer-test-bell');
   if(startBtn) startBtn.addEventListener('click', startTimer);
   if(pauseBtn) pauseBtn.addEventListener('click', pauseTimer);
-  if(resetBtn) resetBtn.addEventListener('click', resetTimer);
+  if(resetBtn) resetBtn.addEventListener('click', ()=>{
+    const idle = !timerRunning && timerMode==='game' && timerRemainingSecs >= timerTotalSecs - 0.5;
+    if(idle){ resetTimer(); return; }
+    if(document.getElementById('kc-tset')) return;
+    const ov = document.createElement('div'); ov.className='kc-tset'; ov.id='kc-tset';
+    ov.innerHTML = '<div class="kc-tset-box"><h3>Reset the timer?</h3><div class="kc-tset-hint" style="font-size:.95rem;margin-bottom:1rem">The game clock goes back to the start.</div><div class="kc-tset-act"><button type="button" class="kc-tset-no" id="kc-rs-no">Keep going</button><button type="button" class="kc-tset-ok" id="kc-rs-ok" style="background:var(--clay);color:var(--cream)">Reset</button></div></div>';
+    document.body.appendChild(ov);
+    ov.querySelector('#kc-rs-no').addEventListener('click', ()=> ov.remove());
+    ov.addEventListener('click', e=>{ if(e.target===ov) ov.remove(); });
+    ov.querySelector('#kc-rs-ok').addEventListener('click', ()=>{ ov.remove(); resetTimer(); });
+  });
   if(testBtn) testBtn.addEventListener('click', ()=>{
     ensureTimerAudio(); playBell();
     timerSoundPrimed = true;
     setSoundStatus('Playing the hand bell now. Heard nothing? Turn the volume up and switch the iPad side switch off silent, then tap again.', true);
     setTimeout(()=>setSoundStatus(), 7000);
   });
-  document.querySelectorAll('.timer-preset-btn, #timer-reset').forEach(el=> el.addEventListener('click', ()=>{ if(!timerSoundPrimed) primeTimerSound(); }));
+  document.querySelectorAll('#timer-reset').forEach(el=> el.addEventListener('click', ()=>{ if(!timerSoundPrimed) primeTimerSound(); }));
+  if(!KC_VIEWER){
+    // Browsers only allow sound after a tap. Any first tap anywhere (Start, a score, check-in...) unlocks the bell.
+    const unlock = ()=>{ try{ if(!timerSoundPrimed) primeTimerSound(); }catch(e){} };
+    document.addEventListener('click', unlock, true);
+    document.addEventListener('touchend', unlock, true);
+  }
   setSoundStatus();
 }
 
